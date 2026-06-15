@@ -1,14 +1,9 @@
+import 'package:counterapp/countcontroller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Counter extends StatefulWidget {
-  const Counter({super.key});
-
-  @override
-  State<Counter> createState() => _CounterState();
-}
-
-class _CounterState extends State<Counter> {
-  int count = 0;
+class Newscreen extends StatelessWidget {
+  const Newscreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +22,7 @@ class _CounterState extends State<Counter> {
             ),
             SizedBox(height: 20),
             Text(
-              "$count",
+              context.watch<Countcontroller>().count.count.toString(),
               style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 30),
@@ -43,9 +38,7 @@ class _CounterState extends State<Counter> {
                       shape: CircleBorder(),
                     ),
                     onPressed: () {
-                      setState(() {
-                        count--;
-                      });
+                      context.read<Countcontroller>().decrement();
                     },
                     child: const Text("-", style: TextStyle(fontSize: 30)),
                   ),
@@ -61,9 +54,7 @@ class _CounterState extends State<Counter> {
                       shape: CircleBorder(),
                     ),
                     onPressed: () {
-                      setState(() {
-                        count++;
-                      });
+                      context.read<Countcontroller>().increment();
                     },
                     child: const Text("+", style: TextStyle(fontSize: 30)),
                   ),
@@ -84,9 +75,7 @@ class _CounterState extends State<Counter> {
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      count = 0;
-                    });
+                    context.read<Countcontroller>().reset();
                   },
                   child: const Text(
                     "Reset",
